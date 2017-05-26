@@ -1,7 +1,7 @@
 TypeScript Node Starter
 =======================
 
-[![Dependency Status](https://david-dm.org/Microsoft/TypeScript-Node-Starter.svg)](https://david-dm.org/Microsoft/TypeScript-Node-Starter) [![Build Status](https://travis-ci.org/Microsoft/TypeScript-Node-Starter.svg?branch=master)](https://travis-ci.org/Microsoft/TypeScript-Node-Starter) 
+Based on https://github.com/Microsoft/TypeScript-Node-Starter#typescript-node-starter
 
 # Pre-reqs
 - Install [Node.js](https://nodejs.org/en/)
@@ -11,7 +11,7 @@ TypeScript Node Starter
 # Getting started
 - Clone the repository
 ```
-git clone --depth=1 https://github.com/Microsoft/TypeScript-Node-Starter.git <project_name>
+git clone --depth=1 git@github.com:kjackson87/Typescript-API-Starter.git <project_name>
 ```
 - Install dependencies
 ```
@@ -65,20 +65,15 @@ The full folder structure of this app is explained below:
 | **src**                  | Contains your source code that will be compiled to the dist dir                               |
 | **src/config**           | Passport authentication strategies and login middleware. Add other complex config code here   |
 | **src/controllers**      | Controllers define functions that respond to various http requests                            |
-| **src/models**           | Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB  |
-| **src/public**           | Static assets that will be used client side                                                   |
+| **src/models**           | Models define Mongoose schemas that will be used in storing and retrieving data from MongoDB  |                                                   |
 | **src/types**            | Holds .d.ts files not found on DefinitelyTyped. Covered more in this [section](#)          |
 | **src**/server.ts        | Entry point to your express app                                                               |
 | **test**                 | Contains your tests. Seperate from source because there is a different build process.         |
-| **views**                | Views define how your app renders on the client. In this case we're using pug                 |
 | .env.example             | API keys, tokens, passwords, database URI. Clone this, but don't check it in to public repos. |
-| .travis.yml              | Used to configure Travis CI build                                                             |
-| .copyStaticAssets.js     | Build script that copies images, fonts, and JS libs to the dist folder                        |
 | package.json             | File that contains npm dependencies as well as [build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
 | tsconfig.json            | Config settings for compiling server code written in TypeScript                               |
 | tsconfig.tests.json      | Config settings for compiling tests written in TypeScript                                     |
 | tslint.json              | Config settings for TSLint code style checking                                                |
-| yarn.lock                | Contains same dependency version info as package.json, but used with yarn                     |
 
 ## Building the project
 It is rare for JavaScript projects not to have some kind of build pipeline these days, however Node projects typically have the least amount build configuration. 
@@ -147,16 +142,13 @@ Below is a list of all the scripts this template has available:
 | Npm Script | Description |
 | ------------------------- | ------------------------------------------------------------------------------------------------- |
 | `start`                   | Runs full build before starting all watch tasks. Can be invoked with `npm start`                  |
-| `build`                   | Full build. Runs ALL build tasks (`build-sass`, `build-ts`, `tslint`, `copy-static-assets`)       |
+| `build`                   | Full build. Runs ALL build tasks (`build-ts`, `tslint`)       |
 | `serve`                   | Runs node on `dist/server.js` which is the apps entry point                                       |
-| `watch`                   | Runs all watch tasks (TypeScript, Sass, Node). Use this if you're not touching static assets.     |
+| `watch`                   | Runs all watch tasks (TypeScript, Node). Use this if you're not touching static assets.     |
 | `test`                    | Runs tests using Jest test runner                                                                 |
 | `build-ts`                | Compiles all source `.ts` files to `.js` files in the `dist` folder                               |
 | `watch-ts`                | Same as `build-ts` but continuously watches `.ts` files and re-compiles when needed                |
-| `build-sass`              | Compiles all `.scss` files to `.css` files                                                        |
-| `watch-sass`              | Same as `build-sass` but continuously watches `.scss` files and re-compiles when needed             |
 | `tslint`                  | Runs TSLint on project files                                                                      |
-| `copy-static-assets`      | Calls script that copies JS libs, fonts, and images to dist directory                             |
 
 ## Type Definition (`.d.ts`) Files
 TypeScript uses `.d.ts` files to provide types for JavaScript libraries that were not written in TypeScript.
@@ -379,18 +371,14 @@ In that file you'll find two sections:
 | dotenv                          | Loads environment variables from .env file.                           |
 | errorhandler                    | Express 4 middleware.                                                 |
 | express                         | Node.js web framework.                                                |
-| express-flash                   | Provides flash messages for Express.                                  |
 | express-session                 | Express 4 middleware.                                                 |
 | express-validator               | Easy form validation for Express.                                     |
-| fbgraph                         | Facebook Graph API library.                                           |
 | lusca                           | CSRF middleware.                                                      |
 | mongoose                        | MongoDB ODM.                                                          |
 | morgan                          | Express 4 middleware.                                                 |
-| nodemailer                      | Node.js library for sending emails.                                   |
 | passport                        | Simple and elegant authentication library for node.js                 |
 | passport-facebook               | Sign-in with Facebook plugin.                                         |
 | passport-local                  | Sign-in with Username and Password plugin.                            |
-| pug (jade)				      | Template engine for Express.                                          |
 | request                         | Simplified HTTP request library.                                      |
 
 ## `devDependencies`
@@ -399,16 +387,12 @@ In that file you'll find two sections:
 | ------------------------------- | --------------------------------------------------------------------- |
 | concurrently                    | Utility that manages multiple concurrent tasks. Used with npm scripts |
 | jest                            | Reports real-time server metrics for Express.                         |
-| node-sass                       | GitHub API library.                                                   |
 | supertest                       | HTTP assertion library.                                               |
 | ts-test                         | Instagram API library.                                                |
 | tslint                          | Linter (similar to ESLint) for TypeScript files                       |
 | typescript                      | JavaScript compiler/type checker that boosts JavaScript productivity  |
 
-To install or update these dependencies you can use either `npm` or `yarn`.
+To install or update these dependencies you can use either `npm`.
 
 # Other
-Here is a section of miscellaneous tips. 
-
-# Hackathon Start Project
-A majority of this quick start's content was inspired or adapted from Sahat's excellent [Hackathon Starter project](https://github.com/sahat/hackathon-starter).
+Here is a section of miscellaneous tips.

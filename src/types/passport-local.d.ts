@@ -3,12 +3,12 @@
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="passport"/>
+/// <reference types='passport'/>
 
 
 
-import passport = require("passport");
-import express = require("express");
+import passport = require('passport');
+import express = require('express');
 
 interface IStrategyOptions {
     usernameField?: string;
