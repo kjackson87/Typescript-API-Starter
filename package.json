@@ -14,9 +14,10 @@
     "serve": "node dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"nodemon dist/server.js\"",
     "test": "jest --forceExit",
-    "build-ts": "tsc",
+    "build-ts": "tsc --pretty",
     "watch-ts": "tsc -w",
-    "tslint": "tslint -c tslint.json -p tsconfig.json"
+    "tslint": "tslint -c tslint.json -p tsconfig.json",
+    "tslint-fix": "tslint -c tslint.json -p tsconfig.json --fix"
   },
   "jest": {
     "globals": {
