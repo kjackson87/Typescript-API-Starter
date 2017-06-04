@@ -16,17 +16,17 @@ export type UserModel = mongoose.Document & {
     gender: string,
     location: string,
     website: string,
-    picture: string
+    picture: string,
   },
 
   comparePassword: (candidatePassword: string, cb: (err: any, isMatch: any) => {}) => void,
-  gravatar: (size: number) => string
+  gravatar: (size: number) => string,
 };
 
-export type AuthToken = {
-  accessToken: string,
-  kind: string
-};
+export interface AuthToken {
+  accessToken: string;
+  kind: string;
+}
 
 const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
@@ -44,8 +44,8 @@ const userSchema = new mongoose.Schema({
     gender: String,
     location: String,
     website: String,
-    picture: String
-  }
+    picture: String,
+  },
 }, { timestamps: true });
 
 /**
@@ -69,7 +69,6 @@ userSchema.methods.comparePassword = function(candidatePassword: string, cb: (er
     cb(err, isMatch);
   });
 };
-
 
 /**
  * Helper method for getting user's gravatar.

@@ -15,6 +15,8 @@ import * as mongoose from 'mongoose';
 import * as passport from 'passport';
 import expressValidator = require('express-validator');
 
+const metrics = require('express-node-metrics').metrics;
+const metricsMiddleware = require('express-node-metrics').middleware;
 
 const MongoStore = mongo(session);
 
@@ -22,7 +24,6 @@ const MongoStore = mongo(session);
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 dotenv.config({ path: '.env.example' });
-
 
 /**
  * Controllers (route handlers).
@@ -50,14 +51,13 @@ mongoose.connection.on('error', () => {
   process.exit();
 });
 
-
-
 /**
  * Express configuration.
  */
 app.set('port', process.env.PORT || 3000);
 app.use(compression());
 app.use(logger('dev'));
+app.use(metricsMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
@@ -67,8 +67,8 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
     url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
-    autoReconnect: true
-  })
+    autoReconnect: true,
+  }),
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -87,7 +87,7 @@ app.use((req, res, next) => {
       !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-      req.path == '/account') {
+      req.path === '/account') {
     req.session.returnTo = req.path;
   }
   next();
@@ -107,6 +107,13 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
   res.redirect(req.session.returnTo || '/');
 });
 
+app.get('/', (req, res) => {
+    res.send(metrics.getAll(req.query.reset));
+});
+
+app.get('/api', (req, res) => {
+    res.send(metrics.apiMetrics(req.query.reset));
+});
 
 /**
  * Error Handler. Provides full stack - remove for production

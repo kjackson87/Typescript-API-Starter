@@ -16,8 +16,8 @@
     "test": "jest --forceExit",
     "build-ts": "tsc --pretty",
     "watch-ts": "tsc -w",
-    "tslint": "tslint -c tslint.json -p tsconfig.json",
-    "tslint-fix": "tslint -c tslint.json -p tsconfig.json --fix"
+    "lint": "tslint -c tslint.json -p tsconfig.json",
+    "lint-fix": "tslint -c tslint.json -p tsconfig.json --fix"
   },
   "jest": {
     "globals": {

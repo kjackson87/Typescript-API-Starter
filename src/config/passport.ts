@@ -21,7 +21,6 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-
 /**
  * Sign in using Email and Password.
  */
@@ -41,7 +40,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
   });
 }));
 
-
 /**
  * OAuth Strategy Overview
  *
@@ -57,7 +55,6 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, (email, password, don
  *       - Else create a new account.
  */
 
-
 /**
  * Sign in with Facebook.
  */
@@ -66,13 +63,14 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_SECRET,
   callbackURL: '/auth/facebook/callback',
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
-  passReqToCallback: true
+  passReqToCallback: true,
 }, (req: any, accessToken, refreshToken, profile, done) => {
   if (req.user) {
     User.findOne({ facebook: profile.id }, (err, existingUser) => {
       if (err) { return done(err); }
       if (existingUser) {
-        req.flash('errors', { msg: 'There is already a Facebook account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
+        req.flash('errors', { msg: 'There is already a Facebook account that belongs to you. Sign in with that ' +
+          'account or delete it, then link it with your current account.' });
         done(err);
       } else {
         User.findById(req.user.id, (err, user: any) => {
@@ -98,7 +96,8 @@ passport.use(new FacebookStrategy({
       User.findOne({ email: profile._json.email }, (err, existingEmailUser) => {
         if (err) { return done(err); }
         if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Facebook manually from Account Settings.' });
+          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that ' +
+            'account and link it with Facebook manually from Account Settings.' });
           done(err);
         } else {
           const user: any = new User();
