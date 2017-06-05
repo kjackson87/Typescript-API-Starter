@@ -10,7 +10,7 @@
   "license": "MIT",
   "scripts": {
     "start": "npm run build && npm run watch",
-    "build": "npm run build-ts && npm run tslint",
+    "build": "npm run build-ts && npm run lint",
     "serve": "node dist/server.js",
     "watch": "concurrently -k -p \"[{name}]\" -n \"Sass,TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"nodemon dist/server.js\"",
     "test": "jest --forceExit",
@@ -44,6 +44,7 @@
     "dotenv": "4.0.0",
     "errorhandler": "1.5.0",
     "express": "4.15.3",
+    "express-node-metrics": "1.4.0",
     "express-session": "1.15.3",
     "express-validator": "3.2.0",
     "lodash": "4.17.4",
