@@ -97,15 +97,22 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * API routes.
  */
-app.get('/hello', helloController.hello);
+app.get('/hello', passportConfig.isAuthenticated, helloController.hello);
 
 /**
  * OAuth authentication routes. (Sign in)
  */
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect(req.session.returnTo || '/');
-});
+app.get('/auth',
+    passport.authenticate('openidconnect'));
+
+app.get('/auth/callback',
+    passport.authenticate('openidconnect', {
+        failureRedirect: '/error',
+    }),
+    (req, res) => {
+        console.log('req:' + req);
+        res.redirect(req.session.returnTo || '/');
+    });
 
 app.get('/', (req, res) => {
     res.send(metrics.getAll(req.query.reset));
